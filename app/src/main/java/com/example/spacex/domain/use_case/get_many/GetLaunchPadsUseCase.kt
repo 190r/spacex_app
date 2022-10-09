@@ -2,6 +2,7 @@ package com.example.spacex.domain.use_case.get_many
 
 import com.example.spacex.common.SpacexApiResult
 import com.example.spacex.domain.model.Launch
+import com.example.spacex.domain.model.LaunchPad
 import com.example.spacex.domain.repository.LaunchPads
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -12,17 +13,17 @@ import javax.inject.Inject
 class GetLaunchPadsUseCase @Inject constructor(
     private val repo: LaunchPads
 ){
-    operator fun invoke(): Flow<SpacexApiResult<List<Launch>>> = flow {
+    operator fun invoke(): Flow<SpacexApiResult<List<LaunchPad>>> = flow {
         try {
-            emit(SpacexApiResult.Loading<List<Launch>>(data = null))
+            emit(SpacexApiResult.Loading<List<LaunchPad>>(data = null))
             val launchPadsList = repo.getLaunchPads()
-            emit(SpacexApiResult.Success<List<Launch>>(launchPadsList))
+            emit(SpacexApiResult.Success<List<LaunchPad>>(launchPadsList))
         } catch (e: HttpException) {
-            emit(SpacexApiResult.Error<List<Launch>>(e.localizedMessage ?: "Unexpected error"))
+            emit(SpacexApiResult.Error<List<LaunchPad>>(e.localizedMessage ?: "Unexpected error"))
         } catch (e: IOException) {
-            emit(SpacexApiResult.Error<List<Launch>>("Connection Error"))
+            emit(SpacexApiResult.Error<List<LaunchPad>>("Connection Error"))
         } catch (e: Exception) {
-            emit(SpacexApiResult.Error<List<Launch>>(e.localizedMessage ?: "Unrecoverable Error"))
+            emit(SpacexApiResult.Error<List<LaunchPad>>(e.localizedMessage ?: "Unrecoverable Error"))
         }
     }
 

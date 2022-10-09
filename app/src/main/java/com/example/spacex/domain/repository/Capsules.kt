@@ -5,6 +5,7 @@ import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.Path
 import com.example.spacex.domain.model.Query
+import retrofit2.http.Body
 
 interface Capsules {
 
@@ -15,6 +16,6 @@ interface Capsules {
     suspend fun getCapsuleById(@Path("id") id: String): Capsule
 
     @POST("v4/capsules/query")
-    suspend fun queryCapsules(query: Query): List<Capsule>
+    suspend fun queryCapsules(@Body query: Query): List<Capsule>
 
 }

@@ -2,6 +2,7 @@ package com.example.spacex.domain.repository
 
 import com.example.spacex.domain.model.Launch
 import com.example.spacex.domain.model.Query
+import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.Path
@@ -15,6 +16,6 @@ interface Launches {
     suspend fun getLaunchPadById(@Path("id") id: String): Launch
 
     @POST("v5/launches/query")
-    suspend fun queryLaunchPads(query: Query): List<Launch>
+    suspend fun queryLaunchPads(@Body query: Query): List<Launch>
 
 }

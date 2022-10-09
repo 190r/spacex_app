@@ -9,15 +9,14 @@ import retrofit2.HttpException
 import java.io.IOException
 import javax.inject.Inject
 
-class GetCompanyInfoUseCase @Inject constructor(
+class GetCompanyHistoryUseCase @Inject constructor(
     private val repo: SpaceXHistory
 ){
-
     operator fun invoke(): Flow<SpacexApiResult<List<History>>> = flow {
         try {
             emit(SpacexApiResult.Loading<List<History>>(data = null))
-            val histories = repo.getHistoryItems()
-            emit(SpacexApiResult.Success<List<History>>(histories))
+            val historyData = repo.getHistoryItems()
+            emit(SpacexApiResult.Success<List<History>>(historyData))
         } catch (e: HttpException) {
             emit(SpacexApiResult.Error<List<History>>(e.localizedMessage ?: "Unexpected error"))
         } catch (e: IOException) {
